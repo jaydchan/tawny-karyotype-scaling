@@ -17,7 +17,7 @@
 
 (ns ncl.karyotype.scaling.randomkaryotype1010
   (:use [tawny.owl])
-  (:require [ncl.karyotype [randomkaryotype :as r]]))
+  (:require [ncl.karyotype [random :as r]]))
 
 (defontology randomkaryotype1010
   :iri "http://ncl.ac.uk/karyotype/randomkaryotype1010"
