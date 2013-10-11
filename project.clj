@@ -20,6 +20,6 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [uk.org.russet/tawny-owl "1.0-SNAPSHOT"]
                  [ncl.karyotype "1.0.0-SNAPSHOT"]
+                 [incanter "1.5.4"]
                  ]
-  :main ncl.karyotype.scaling.core
-)
+  :main ncl.karyotype.scaling.core)

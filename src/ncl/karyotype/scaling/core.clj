@@ -18,13 +18,15 @@
 (ns ncl.karyotype.scaling.core
   (:use [tawny.owl])
   (:require [tawny.reasoner]
-            [ncl.karyotype randomkaryotype]
-            [ncl.karyotype.scaling randomkaryotype1010 randomkaryotypegenerate]
+            [ncl.karyotype random]
+;;            [ncl.karyotype.scaling randomkaryotype1010]
+            [ncl.karyotype.scaling randomkaryotypegenerate]
+;;            [ncl.karyotype.scaling graph]
             )
   (:gen-class))
 
 (defn -main [& args]
-  (with-ontology ncl.karyotype.scaling.randomkaryotype1010/randomkaryotype1010
-    (save-ontology "randomkaryotype1010.omn" :omn)
-    (save-ontology "randomkaryotype1010.owl" :owl))
+  ;; (with-ontology ncl.karyotype.scaling.randomkaryotype1010/randomkaryotype1010
+  ;;   (save-ontology "randomkaryotype1010.omn" :omn)
+  ;;   (save-ontology "randomkaryotype1010.owl" :owl))
 )

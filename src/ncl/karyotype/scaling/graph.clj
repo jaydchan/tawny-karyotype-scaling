@@ -1,0 +1,44 @@
+(ns ncl.karyotype.scaling.graph
+  (:use (incanter core stats charts))
+  (:require [clojure.java.io :as io]))
+
+;; function to read a file
+(defn get-lines [file-name]
+  (with-open [r (io/reader file-name)]
+    (doall (line-seq r))))
+
+;; reads in data
+(def string-results (get-lines "results.txt"))
+(def results
+  (for [r string-results]
+    (read-string r)))
+
+;; groups data by the key
+(def grouped-results (group-by first results))
+
+(def stuff
+  (for [r grouped-results]
+    (let [record (second r)]
+      [(first r)
+       (apply merge
+        (map
+         #(sorted-map (keyword (str (second %1))) (mean (second (rest %1))))
+         record))])))
+
+(let [start (first stuff)]
+  (def plot (line-chart
+             (keys (second start))
+             (vals (second start))
+             :legend true
+             :title "Line chart showing the average time taken (n =
+             100 iterations) versus the number of random
+             karyotypes (k) with at most m number of restrictions."
+             :x-label "Number of random karyotypes (k)"
+             :y-label "Time taken (msecs)"
+             :series-label (str "m = " (first start))))
+  (doseq [r (rest stuff)]
+    (add-categories plot
+                    (keys (second r))
+                    (vals (second r))
+                    :series-label (str "m = " (first r))))
+  (view plot))
