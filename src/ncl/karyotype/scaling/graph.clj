@@ -25,6 +25,9 @@
          #(sorted-map (keyword (str (second %1))) (mean (second (rest %1))))
          record))])))
 
+(doseq [s stuff]
+  (println s))
+
 (let [start (first stuff)]
   (def plot (line-chart
              (keys (second start))

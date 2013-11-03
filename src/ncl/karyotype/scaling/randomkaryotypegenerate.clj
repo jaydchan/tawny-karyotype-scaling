@@ -25,6 +25,8 @@
   (read-string (re-find #"[\d.]+" string)))
 
 (defn run-once [n m k]
+  (if (= 0 n)
+    (println (str "M = " m)))
   (if (= 0 (mod n 10))
     (println (str "N = " n)))
 
@@ -38,12 +40,14 @@
             (atom
              rea/reasoner-progress-monitor-silent)]
   (println "Reasoning")
-  (get-value (with-out-str (time
-   (rea/coherent? temp)))))
-)
+  (get-value
+   (with-out-str (time
+                  (try
+                    (rea/coherent? temp)
+                    (catch Exception e nil)))))))
 
 (defn output
-  "Outputs STRING to OUTPUT-FILE unless there is an ERROR"
+  "APPENDs a STRING to OUTPUT-FILE unless there is an ERROR"
   [output-file string append error]
    (try
      (spit output-file string
@@ -55,8 +59,9 @@
   ;; clearing file
   (output "results.txt" "" false "Error - clearing file causes ")
 
-  (doseq [m m-values]
-    (doseq [k k-values]
+
+  (doseq [k k-values]
+    (doseq [m m-values]
       (output "results.txt"
               (str
                [m k (into [] (for [n (range n-value)]
@@ -68,9 +73,9 @@
 
 ;; Number of random karyotypes - it's not happy doing 1,000,000 and
 ;; fails for some 100,000
-(def powers-of-10 (take 4 (iterate (partial * 10) 10)))
+(def powers-of-10 (take 3 (iterate (partial * 10) 10)))
 ;; Max number of abnormalities
-(def max-values [1 3 5 10])
+(def max-values [1 3 6 10])
 ;; Number of iterations
 (def n 100)
 

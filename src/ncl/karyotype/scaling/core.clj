@@ -20,8 +20,8 @@
   (:require [tawny.reasoner]
             [ncl.karyotype random]
 ;;            [ncl.karyotype.scaling randomkaryotype1010]
-            [ncl.karyotype.scaling randomkaryotypegenerate]
-;;            [ncl.karyotype.scaling graph]
+;;            [ncl.karyotype.scaling randomkaryotypegenerate]
+            [ncl.karyotype.scaling graph]
             )
   (:gen-class))
 
