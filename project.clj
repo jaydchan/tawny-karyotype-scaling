@@ -22,4 +22,5 @@
                  [ncl.karyotype "1.0.0-SNAPSHOT"]
                  [incanter "1.5.4"]
                  ]
+  :jvm-opts ["-Xmx2g" "-server"]
   :main ncl.karyotype.scaling.core)

@@ -30,8 +30,9 @@
 
 (let [start (first stuff)]
   (def plot (line-chart
-             (keys (second start))
-             (vals (second start))
+             (map #(read-string (name %)) (keys (second start)))
+             (map #(log %) (vals (second start)))
+             ;; (vals (second start))
              :legend true
              :title "Line chart showing the average time taken (n =
              100 iterations) versus the number of random
@@ -41,7 +42,12 @@
              :series-label (str "m = " (first start))))
   (doseq [r (rest stuff)]
     (add-categories plot
-                    (keys (second r))
-                    (vals (second r))
+                    (map #(read-string (name %)) (keys (second r)))
+                    (map #(log %) (vals (second r)))
+                    ;; (vals (second r))
                     :series-label (str "m = " (first r))))
-  (view plot))
+  (view plot)
+  (Thread/sleep 10000)
+  (save plot "log-linear.png")
+  ;; (save plot "linear-linear.png")
+)

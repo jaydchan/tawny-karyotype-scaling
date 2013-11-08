@@ -15,20 +15,26 @@
 ;; You should have received a copy of the GNU Lesser General Public License
 ;; along with this program.  If not, see http://www.gnu.org/licenses/.
 
-(ns ncl.karyotype.scaling.core
+(ns ncl.karyotype.scaling.generaterandomkaryotype
   (:use [tawny.owl])
-  (:require [tawny.reasoner]
-            [ncl.karyotype random]
-;;            [ncl.karyotype.scaling randomkaryotype1010]
-;;            [ncl.karyotype.scaling randomkaryotypegenerate]
-            [ncl.karyotype.scaling graph]
-;;            [ncl.karyotype.scaling generaterandomkaryotype]
-;;            [ncl.karyotype.scaling reasonrandomkaryotype]
-            )
-  (:gen-class))
+  (:require [tawny [reasoner :as rea]]
+            [ncl.karyotype [random :as ran]]
+            [ncl.karyotype [karyotype :as k]]))
 
-(defn -main [& args]
-  ;; (with-ontology ncl.karyotype.scaling.randomkaryotype1010/randomkaryotype1010
-  ;;   (save-ontology "randomkaryotype1010.omn" :omn)
-  ;;   (save-ontology "randomkaryotype1010.owl" :owl))
+(defn run-once [n m k]
+  (defontology temp)
+
+  (ran/random-karyotype-driver k m)
+
+  (with-ontology ncl.karyotype.scaling.generaterandomkaryotype/temp
+    (save-ontology (str "n" n ".owl") :owl))
 )
+
+;; MAIN
+;; Max number of abnormalities
+(def m (read-string (slurp "m.txt")))
+;; Number of random karyotypes
+(def k (read-string (slurp "k.txt")))
+;; Number of iteration
+(def n (read-string (slurp "n.txt")))
+(run-once n m k)
