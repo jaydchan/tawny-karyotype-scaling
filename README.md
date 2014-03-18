@@ -1,13 +1,14 @@
-# tawny-karyotype-scaling
+tawny-karyotype-scaling
+=======================
 
-A Clojure library designed to ... well, that part is up to you.
+A Clojure project to investigate the scaling performace of the [Karyotype Ontology](https://github.com/jaydchan/tawny-karyotype), using [Tawny-OWL](https://github.com/phillord/tawny-owl).
 
-## Usage
+## Author
 
-FIXME
+Jennifer Warrender, Newcastle University.
 
 ## License
 
-Copyright © 2013 FIXME
+The contents of this project are subject to the [LGPL License, Version 3.0](LICENSE).
 
-Distributed under the Eclipse Public License, the same as Clojure.
+Copyright (C) 2013-2014, Newcastle University.
