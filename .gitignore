@@ -5,3 +5,5 @@
 *.owl
 *~
 *.sh
+*.log
+*.xml
