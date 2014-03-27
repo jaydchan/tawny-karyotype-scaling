@@ -17,24 +17,11 @@
 
 (ns ncl.karyotype.scaling.generaterandomkaryotype
   (:use [tawny.owl])
-  (:require [tawny [reasoner :as rea]]
-            [ncl.karyotype [random :as ran]]
-            [ncl.karyotype [karyotype :as k]]))
+  (:require [ncl.karyotype [random :as r]]))
 
 (defn run-once [n m k]
   (defontology temp)
 
-  (ran/random-karyotype-driver k m)
+  (r/random-karyotype-driver temp k m)
 
-  (with-ontology ncl.karyotype.scaling.generaterandomkaryotype/temp
-    (save-ontology (str "n" n ".owl") :owl))
-)
-
-;; MAIN
-;; Max number of abnormalities
-(def m (read-string (slurp "m.txt")))
-;; Number of random karyotypes
-(def k (read-string (slurp "k.txt")))
-;; Number of iteration
-(def n (read-string (slurp "n.txt")))
-(run-once n m k)
+  (with-ontology temp (save-ontology (str "n" n ".owl") :owl)))
