@@ -16,11 +16,10 @@
 ;; along with this program.  If not, see http://www.gnu.org/licenses/.
 
 (defproject ncl.karyotype.scaling "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+  :description "Investigating scaling performance of the Karyotype Ontology."
   :dependencies [[org.clojure/clojure "1.5.1"]
-                 [uk.org.russet/tawny-owl "1.0-SNAPSHOT"]
+                 [uk.org.russet/tawny-owl "1.1.0-SNAPSHOT"]
                  [ncl.karyotype "1.0.0-SNAPSHOT"]
-                 [incanter "1.5.4"]
-                 ]
+                 [incanter "1.5.4"]]
   :jvm-opts ["-Xmx2g" "-server"]
   :main ncl.karyotype.scaling.core)
