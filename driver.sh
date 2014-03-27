@@ -15,9 +15,9 @@ M=( 0 5 )
 N=( 1 2 )
 
 ## run driver? YES=1 NO=0
-GEN=0; ## generate base ontologies
-REF=0; ## refine ontologies with affects models
-REA=0; ## reason ontologies and note time
+GEN=1; ## generate base ontologies
+REF=1; ## refine ontologies with affects models
+REA=1; ## reason ontologies and note time
 
 ## clean-up
 echo -n > tasks.txt
