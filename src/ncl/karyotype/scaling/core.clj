@@ -13,22 +13,49 @@
 ;; GNU Lesser General Public License for more details.
 
 ;; You should have received a copy of the GNU Lesser General Public License
-;; along with this program.  If not, see http://www.gnu.org/licenses/.
+;; along with this program. If not, see http://www.gnu.org/licenses/.
 
 (ns ncl.karyotype.scaling.core
   (:use [tawny.owl])
-  (:require [tawny.reasoner]
-            [ncl.karyotype random]
-;;            [ncl.karyotype.scaling randomkaryotype1010]
-;;            [ncl.karyotype.scaling randomkaryotypegenerate]
-            [ncl.karyotype.scaling graph]
-;;            [ncl.karyotype.scaling generaterandomkaryotype]
-;;            [ncl.karyotype.scaling reasonrandomkaryotype]
-            )
+  (:require [ncl.karyotype random affects1 affects2 affects3]
+            [tawny.reasoner]
+            [ncl.karyotype.scaling generaterandomkaryotype
+            refinerandomkaryotype reasonrandomkaryotype graph] )
   (:gen-class))
 
 (defn -main [& args]
-  ;; (with-ontology ncl.karyotype.scaling.randomkaryotype1010/randomkaryotype1010
-  ;;   (save-ontology "randomkaryotype1010.omn" :omn)
-  ;;   (save-ontology "randomkaryotype1010.owl" :owl))
-)
+
+  (let [arg0 (into [] args)]
+    ;; Driver
+    (def d (read-string (get arg0 0)))
+
+    (if (>= d -1)
+      (do
+        ;; Number of random karyotypes
+        (def k (read-string (get arg0 1)))
+        ;; Max number of abnormalities
+        (def m (read-string (get arg0 2)))
+        ;; Number of iteration
+        (def n (read-string (get arg0 3)))))
+
+  (cond
+   (= d -1)
+   (print
+    (ncl.karyotype.scaling.reasonrandomkaryotype/run-once n m k))
+   (= d 0)
+   (ncl.karyotype.scaling.generaterandomkaryotype/run-once n m k)
+   (= d 1)
+   (ncl.karyotype.scaling.refinerandomkaryotype/run-once
+    ncl.karyotype.affects1/affects1-driver k m n)
+   (= d 2)
+   (ncl.karyotype.scaling.refinerandomkaryotype/run-once
+    ncl.karyotype.affects2/affects2-driver k m n)
+   (= d 3)
+   (ncl.karyotype.scaling.refinerandomkaryotype/run-once
+    ncl.karyotype.affects3/affects3-driver k m n)
+   (= d -2)
+   (ncl.karyotype.scaling.graph/driver 0 5)
+   :else
+   (println
+    (str "ERROR Expected: d in {-2..3} "
+         "Actual: d = " d " with type " (type d))))))
