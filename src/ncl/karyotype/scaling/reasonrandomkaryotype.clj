@@ -17,9 +17,7 @@
 
 (ns ncl.karyotype.scaling.reasonrandomkaryotype
   (:use [tawny.owl])
-  (:require [tawny [reasoner :as rea]]
-            [ncl.karyotype [random :as ran]]
-            [ncl.karyotype [karyotype :as k]]))
+  (:require [tawny [reasoner :as r]]))
 
 (defn get-value [string]
   (read-string (re-find #"[\d.]+" string)))
@@ -29,21 +27,12 @@
              (owl-ontology-manager)
              (tawny.owl/iri (clojure.java.io/resource (str "n" n ".owl")))))
 
-  (rea/reasoner-factory :hermit)
-  (binding [rea/*reasoner-progress-monitor*
+  (r/reasoner-factory :hermit)
+  (binding [r/*reasoner-progress-monitor*
             (atom
-             rea/reasoner-progress-monitor-silent)]
+             r/reasoner-progress-monitor-silent)]
   (get-value
    (with-out-str (time
                   (try
-                    (rea/coherent? temp)
+                    (r/coherent? temp)
                     (catch Exception e nil)))))))
-
-;; MAIN
-;; Max number of abnormalities
-(def m (read-string (slurp "m.txt")))
-;; Number of random karyotypes
-(def k (read-string (slurp "k.txt")))
-;; Number of iteration
-(def n (read-string (slurp "n.txt")))
-(println (run-once n m k))
