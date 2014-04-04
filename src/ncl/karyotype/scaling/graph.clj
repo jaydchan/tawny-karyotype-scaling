@@ -72,7 +72,7 @@ DATA."
 
 (defn driver [avalue mvalue]
   ;; reads in data
-  (def string-results (get-lines "results.txt"))
+  (def string-results (get-lines "./output/results.txt"))
   (def results
     (for [r string-results]
       (read-string r)))
