@@ -18,15 +18,14 @@
 (ns ncl.karyotype.scaling.refinerandomkaryotype
   (:use [tawny.owl])
   (:require [ncl.karyotype [random :as ran]]
-            [tawny.render]
             [ncl.karyotype [human :as h]]))
 
 (defn run-once [affects-driver k m n]
 
-  (defontology temp)
   (def temp (.loadOntologyFromOntologyDocument
              (owl-ontology-manager)
-             (tawny.owl/iri (clojure.java.io/resource (str "n" n ".owl")))))
+             (tawny.owl/iri (clojure.java.io/as-file
+                             (str "./output/n" n ".owl")))))
 
   (doseq [clazz (filter #(superclass? temp % ran/RandomKaryotype)
                         (.getClassesInSignature temp))]

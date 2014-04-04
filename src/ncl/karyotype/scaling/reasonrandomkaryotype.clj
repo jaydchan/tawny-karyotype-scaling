@@ -23,9 +23,11 @@
   (read-string (re-find #"[\d.]+" string)))
 
 (defn run-once [n m k]
+
   (def temp (.loadOntologyFromOntologyDocument
              (owl-ontology-manager)
-             (tawny.owl/iri (clojure.java.io/resource (str "n" n ".owl")))))
+             (tawny.owl/iri (clojure.java.io/as-file
+                             (str "./output/n" n ".owl")))))
 
   (r/reasoner-factory :hermit)
   (binding [r/*reasoner-progress-monitor*
