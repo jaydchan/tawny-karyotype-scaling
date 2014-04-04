@@ -31,14 +31,16 @@ for a in "${A[@]}"; do
 		    # if a == 0, then generate ontology
 		    echo "Generating a=$a k=$k m=$m n=$n"
 		    lein run $a $k $m $n
-		    mv "n$n.owl" "resources/without/k$k/m$m"
+		    mkdir -p "./output/without/k$k/m$m/"
+		    mv "n$n.owl" $_
 		elif [ $a -ge 1 -a $a -le 3 -a $REF = 1 ]; then
 		    # else if (1 <= a >= 3) then refine ontology
 		    echo "Generating a=$a k=$k m=$m n=$n"
-		    cp "resources/without/k$k/m$m/n$n.owl" ./resources
+		    cp "./output/without/k$k/m$m/n$n.owl" ./output
 		    lein run $a $k $m $n
-		    mv "n$n.owl" "resources/affects$a/k$k/m$m/n$n.owl"
-		    rm "resources/n$n.owl"
+		    mkdir -p "./output/affects$a/k$k/m$m/"
+		    mv "n$n.owl" $_
+		    rm "./output/n$n.owl"
 		fi
 		echo "$a $k $m $n" >> tasks.txt ## note tasks
 	    done
@@ -54,16 +56,16 @@ readarray LINES < tasks.txt
 
 if [ $REA = 1 ]; then
     ## clean up
-    echo -n > results.txt
+    echo -n > ./output/results.txt
 
     for line in "${LINES[@]}"; do
 	PARTS=( $line )
 	echo "Reasoning a=${PARTS[0]} k=${PARTS[1]} m=${PARTS[2]} n=${PARTS[3]}"
-	cp "resources/${AFFECTS[${PARTS[0]}]}/k${PARTS[1]}/m${PARTS[2]}/n${PARTS[3]}.owl" ./resources
-	echo -n "[${PARTS[0]} ${PARTS[1]} ${PARTS[2]} ${PARTS[3]} " >> results.txt
-	lein run -1 ${PARTS[1]} ${PARTS[2]} ${PARTS[3]} >> results.txt
-	echo "]" >> results.txt
-	rm resources/n${PARTS[3]}.owl
+	cp "output/${AFFECTS[${PARTS[0]}]}/k${PARTS[1]}/m${PARTS[2]}/n${PARTS[3]}.owl" ./output
+	echo -n "[${PARTS[0]} ${PARTS[1]} ${PARTS[2]} ${PARTS[3]} " >> ./output/results.txt
+	lein run -1 ${PARTS[1]} ${PARTS[2]} ${PARTS[3]} >> ./output/results.txt
+	echo "]" >> ./output/results.txt
+	rm output/n${PARTS[3]}.owl
     done
     echo "Reasoning complete"
 fi
@@ -74,4 +76,5 @@ rm tasks.txt
 ## graphs
 echo "Creating graphs"
 lein run -2
-mv *.png ./resources/graphs
+mkdir -p ./output/graphs/
+mv *.png $_
