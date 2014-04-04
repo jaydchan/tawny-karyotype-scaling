@@ -6,7 +6,7 @@
 *~
 *.sh
 *.log
-pom.xml
+*.xml
 tasks.txt
 results.txt
 output/
