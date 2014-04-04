@@ -17,9 +17,11 @@
 
 (defproject ncl.karyotype.scaling "0.1.0-SNAPSHOT"
   :description "Investigating scaling performance of the Karyotype Ontology."
-  :dependencies [[org.clojure/clojure "1.5.1"]
-                 [uk.org.russet/tawny-owl "1.1.0-SNAPSHOT"]
-                 [ncl.karyotype "1.0.0-SNAPSHOT"]
-                 [incanter "1.5.4"]]
+  :dependencies [[ncl.karyotype "1.0.0-SNAPSHOT"]]
+  :scm {:url "https://github.com/jaydchan/tawny-karyotype-scaling.git"
+        :name "git"}
+  :license {:name "LGPL"
+            :url "http://www.gnu.org/licenses/lgpl-3.0.txt"
+            :distribution :repo}
   :jvm-opts ["-Xmx2g" "-server"]
   :main ncl.karyotype.scaling.core)
