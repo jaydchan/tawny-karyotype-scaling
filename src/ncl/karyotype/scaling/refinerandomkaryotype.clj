@@ -32,4 +32,6 @@
     (affects-driver temp clazz))
 
  (with-ontology temp
-   (save-ontology (str "n" n ".owl") :owl)))
+   (save-ontology (str "n" n ".owl") :owl))
+ (with-ontology temp
+   (save-ontology (str "n" n ".omn") :omn)))

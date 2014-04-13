@@ -87,15 +87,18 @@
                              (str "./output/n" n ".owl")))))
 
   (output "stats.txt"
-          (str (join " "
-                (flatten (conj [n m k]
-                      (stats
-                       (frequencies
-                        (flatten
-                         (for [clazz (subclasses temp r/RandomKaryotype)]
-                           (for [event (filter
+          (str "["
+               (join " "
+                     (flatten
+                      (conj [k m n]
+                            (stats
+                             (frequencies
+                              (flatten
+                               (for [clazz (subclasses temp r/RandomKaryotype)]
+                                 (for [event
+                                       (filter
                                         #(instance?
                                           org.semanticweb.owlapi.model.OWLObjectExactCardinality %)
                                         (superclasses temp clazz))]
-                             (str (event-type event) (human-type event)))))))))) "\n")
+                                   (str (event-type event) (human-type event)))))))))) "]\n")
           true ""))

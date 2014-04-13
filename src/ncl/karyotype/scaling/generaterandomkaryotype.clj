@@ -1,6 +1,6 @@
 ;; The contents of this file are subject to the LGPL License, Version 3.0.
 
-;; Copyright (C) 2013, Newcastle University
+;; Copyright (C) 2013-2014, Newcastle University
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU Lesser General Public License as published by
@@ -24,4 +24,5 @@
 
   (r/random-karyotype-driver temp k m)
 
-  (with-ontology temp (save-ontology (str "n" n ".owl") :owl)))
+  (with-ontology temp (save-ontology (str "n" n ".owl") :owl))
+  (with-ontology temp (save-ontology (str "n" n ".omn") :omn)))
