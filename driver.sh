@@ -15,9 +15,12 @@ M=( 0 5 )
 N=( 1 2 )
 
 ## run driver? YES=1 NO=0
+## TODO default GEN to 1 if does not exist
 GEN=1; ## generate base ontologies
+STA=1; ## obtain ontology stats
 REF=1; ## refine ontologies with affects models
 REA=1; ## reason ontologies and note time
+GRA=1; ## create graphs
 
 ## clean-up
 echo -n > tasks.txt
@@ -40,6 +43,11 @@ for a in "${A[@]}"; do
 		    lein run $a $k $m $n
 		    mkdir -p "./output/affects$a/k$k/m$m/"
 		    mv "n$n.owl" $_
+		    rm "./output/n$n.owl"
+		fi
+		if [ $a = 0 -a $STA = 1 ]; then
+		    cp "./output/without/k$k/m$m/n$n.owl" ./output
+		    lein run -3 $k $m $n
 		    rm "./output/n$n.owl"
 		fi
 		echo "$a $k $m $n" >> tasks.txt ## note tasks
@@ -74,7 +82,9 @@ fi
 rm tasks.txt
 
 ## graphs
-echo "Creating graphs"
-lein run -2
-mkdir -p ./output/graphs/
-mv *.png $_
+if [ $GRA = 1 ]; then
+    echo "Creating graphs"
+    lein run -2
+    mkdir -p ./output/graphs/
+    mv *.png $_
+fi

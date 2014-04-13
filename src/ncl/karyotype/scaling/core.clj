@@ -20,7 +20,7 @@
   (:require [ncl.karyotype random affects1 affects2 affects3]
             [tawny.reasoner]
             [ncl.karyotype.scaling generaterandomkaryotype
-            refinerandomkaryotype reasonrandomkaryotype graph] )
+             refinerandomkaryotype reasonrandomkaryotype graph stats])
   (:gen-class))
 
 (defn -main [& args]
@@ -28,15 +28,14 @@
   (let [arg0 (into [] args)]
     ;; Driver
     (def d (read-string (get arg0 0)))
-
-    (if (>= d -1)
-      (do
-        ;; Number of random karyotypes
-        (def k (read-string (get arg0 1)))
-        ;; Max number of abnormalities
-        (def m (read-string (get arg0 2)))
-        ;; Number of iteration
-        (def n (read-string (get arg0 3)))))
+    (try
+      ;; Number of random karyotypes
+      (def k (read-string (get arg0 1)))
+      ;; Max number of abnormalities
+      (def m (read-string (get arg0 2)))
+      ;; Number of iteration
+      (def n (read-string (get arg0 3)))
+      (catch Exception e (str "Error: importing args " (count arg0)))))
 
   (cond
    (= d -1)
@@ -55,7 +54,9 @@
     ncl.karyotype.affects3/affects3-driver k m n)
    (= d -2)
    (ncl.karyotype.scaling.graph/driver 0 5)
+   (= d -3)
+   (ncl.karyotype.scaling.stats/run-once n m k)
    :else
    (println
-    (str "ERROR Expected: d in {-2..3} "
-         "Actual: d = " d " with type " (type d))))))
+    (str "ERROR Expected: d in {-3..3} "
+         "Actual: d = " d " with type " (type d)))))
