@@ -27,7 +27,7 @@ GRA=0; ## create graphs
 if [ $REA = 1 ]; then
     echo -n > tasks.txt
 fi
-if [ $STA = 1 ]; then
+if [ $STA = 1 -a -e ./output/stats.txt ]; then
     echo -n > ./output/stats.txt
 fi
 
