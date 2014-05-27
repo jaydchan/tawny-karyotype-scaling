@@ -24,5 +24,5 @@
 
   (r/random-karyotype-driver temp k m)
 
-  (with-ontology temp (save-ontology (str "n" n ".owl") :owl))
-  (with-ontology temp (save-ontology (str "n" n ".omn") :omn)))
+  (save-ontology temp (str "n" n ".owl") :owl)
+  (save-ontology temp (str "n" n ".omn") :omn))
