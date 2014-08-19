@@ -19,22 +19,24 @@
   (:use [tawny.owl])
   (:require [tawny [reasoner :as r]]))
 
-(defn get-value [string]
+(defn- get-value [string]
   (read-string (re-find #"[\d.]+" string)))
 
 (defn run-once [n m k]
 
-  (def temp (.loadOntologyFromOntologyDocument
-             (owl-ontology-manager)
-             (tawny.owl/iri (clojure.java.io/as-file
-                             (str "./output/n" n ".owl")))))
+  (let [temp (tawny.read/read
+              :location
+              (iri (clojure.java.io/as-file
+                    (str "./output/n" n ".owl")))
+              :iri "http://ncl.ac.uk/karytype/tmp"
+              :prefix "tmp:")]
 
-  (r/reasoner-factory :hermit)
-  (binding [r/*reasoner-progress-monitor*
-            (atom
-             r/reasoner-progress-monitor-silent)]
-  (get-value
-   (with-out-str (time
-                  (try
-                    (r/coherent? temp)
-                    (catch Exception e nil)))))))
+    (r/reasoner-factory :hermit)
+    (binding [r/*reasoner-progress-monitor*
+              (atom
+               r/reasoner-progress-monitor-silent)]
+      (get-value
+       (with-out-str (time
+                      (try
+                        (r/coherent? temp)
+                        (catch Exception e nil))))))))

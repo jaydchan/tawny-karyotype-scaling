@@ -16,8 +16,7 @@
 ;; along with this program.  If not, see http://www.gnu.org/licenses/.
 
 (ns ncl.karyotype.scaling.stats
-  (:use [tawny.owl]
-        [clojure.string :only [join]])
+  (:use [tawny.owl])
   (:require
    [ncl.karyotype
     [random :as r :only [RandomKaryotype]]
@@ -81,24 +80,26 @@
 
 (defn run-once [n m k]
 
-  (def temp (.loadOntologyFromOntologyDocument
-             (owl-ontology-manager)
-             (tawny.owl/iri (clojure.java.io/as-file
-                             (str "./output/n" n ".owl")))))
+  (let [temp (tawny.read/read
+              :location
+              (iri (clojure.java.io/as-file
+                    (str "./output/n" n ".owl")))
+              :iri "http://ncl.ac.uk/karytype/tmp"
+              :prefix "tmp:")]
 
-  (output "stats.txt"
-          (str "["
-               (join " "
-                     (flatten
-                      (conj [k m n]
-                            (stats
-                             (frequencies
-                              (flatten
-                               (for [clazz (subclasses temp r/RandomKaryotype)]
-                                 (for [event
-                                       (filter
-                                        #(instance?
-                                          org.semanticweb.owlapi.model.OWLObjectExactCardinality %)
-                                        (superclasses temp clazz))]
-                                   (str (event-type event) (human-type event)))))))))) "]\n")
-          true ""))
+    (output "stats.txt"
+            (str "["
+                 (clojure.string/join " "
+                       (flatten
+                        (conj [k m n]
+                              (stats
+                               (frequencies
+                                (flatten
+                                 (for [clazz (subclasses temp r/RandomKaryotype)]
+                                   (for [event
+                                         (filter
+                                          #(instance?
+                                            org.semanticweb.owlapi.model.OWLObjectExactCardinality %)
+                                          (superclasses temp clazz))]
+                                     (str (event-type event) (human-type event)))))))))) "]\n")
+            true "")))

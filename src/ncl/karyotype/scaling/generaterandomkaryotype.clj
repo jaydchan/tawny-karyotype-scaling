@@ -20,9 +20,15 @@
   (:require [ncl.karyotype [random :as r]]))
 
 (defn run-once [n m k]
-  (defontology temp)
+  (let [temp (ontology
+              :name "temp"
+              :prefix "tmp:"
+              :iri "http://ncl.ac.uk/karyotype/tmp")]
 
-  (r/random-karyotype-driver temp k m)
+    ;; sets current-ontology to temp ontology
+    (ontology-to-namespace temp)
 
-  (save-ontology temp (str "n" n ".owl") :owl)
-  (save-ontology temp (str "n" n ".omn") :omn))
+    (r/random-karyotype-driver temp k m)
+
+    (save-ontology temp (str "n" n ".owl") :owl)
+    (save-ontology temp (str "n" n ".omn") :omn)))
