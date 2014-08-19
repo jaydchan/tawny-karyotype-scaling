@@ -17,8 +17,9 @@
 
 (ns ncl.karyotype.scaling.refinerandomkaryotype
   (:use [tawny.owl])
-  (:require [ncl.karyotype [random :as ran]]
-            [tawny.repl]
+  (:require [ncl.karyotype
+             random human
+             [affects2 :as a]]
             [tawny.read]))
 
 (defn run-once [affects-driver k m n]
@@ -30,9 +31,13 @@
               :iri "http://ncl.ac.uk/karytype/tmp"
               :prefix "tmp:")]
 
-    (doseq [clazz (filter #(superclass? temp % ran/RandomKaryotype)
-                          (.getClassesInSignature temp))]
+    (doseq [clazz (filter
+                   #(superclass? temp % ncl.karyotype.random/RandomKaryotype)
+                   (.getClassesInSignature temp))]
       (affects-driver temp clazz))
+
+    (if (= affects-driver a/affects2-driver)
+      (a/set-ordinal temp))
 
     (save-ontology temp (str "n" n ".owl") :owl)
     (save-ontology temp (str "n" n ".omn") :omn)))
