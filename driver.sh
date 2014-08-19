@@ -17,11 +17,11 @@ N=( 1 2 )
 ## run driver? YES=1 NO=0
 ## TODO default GEN to 1 if does not exist
 GEN=1; ## generate base ontologies
-STA=0; ## obtain ontology stats
-REF=0; ## refine ontologies with affects models
-REA=0; ## reason ontologies and note time
-DIF=0; ## generate diff results
-GRA=0; ## create graphs
+STA=1; ## obtain ontology stats
+REF=1; ## refine ontologies with affects models
+REA=1; ## reason ontologies and note time
+DIF=1; ## generate diff results
+GRA=1; ## create graphs
 
 ## clean-up -- if exists
 if [ $REA = 1 ]; then
