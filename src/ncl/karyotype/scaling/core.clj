@@ -17,10 +17,15 @@
 
 (ns ncl.karyotype.scaling.core
   (:use [tawny.owl])
-  (:require [ncl.karyotype random affects1 affects2 affects3]
+  (:require [ncl.karyotype.random]
             [tawny.reasoner]
-            [ncl.karyotype.scaling generaterandomkaryotype
-             refinerandomkaryotype reasonrandomkaryotype graph stats])
+            [ncl.karyotype.scaling
+             affects1 affects2 affects3
+             generaterandomkaryotype
+             [refinerandomkaryotype :as r]
+             reasonrandomkaryotype
+             graph stats
+             ])
   (:gen-class))
 
 (defn -main [& args]
@@ -44,14 +49,11 @@
    (= d 0)
    (ncl.karyotype.scaling.generaterandomkaryotype/run-once n m k)
    (= d 1)
-   (ncl.karyotype.scaling.refinerandomkaryotype/run-once
-    ncl.karyotype.affects1/affects1-driver k m n)
+   (r/run-once ncl.karyotype.scaling.affects1/affects1-driver k m n)
    (= d 2)
-   (ncl.karyotype.scaling.refinerandomkaryotype/run-once
-    ncl.karyotype.affects2/affects2-driver k m n)
+   (r/run-once ncl.karyotype.scaling.affects2/affects2-driver k m n)
    (= d 3)
-   (ncl.karyotype.scaling.refinerandomkaryotype/run-once
-    ncl.karyotype.affects3/affects3-driver k m n)
+   (r/run-once ncl.karyotype.scaling.affects3/affects3-driver k m n)
    (= d -2)
    (ncl.karyotype.scaling.graph/driver 0 5)
    (= d -3)

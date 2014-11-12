@@ -1,18 +1,22 @@
 #!/bin/bash
 
+cd ../tawny-karyotype
+lein install
+cd ../tawny-karyotype-scaling
+
 AFFECTS=("without" "affects1" "affects2" "affects3" )
 # A=( `seq 0 $((${#AFFECTS[@]}-1))` )
 A=( $(eval echo {0..$((${#AFFECTS[@]}-1))} ))
 
-K=( 10 100 1000 10000 ) # 100000 1000000
+K=( 10 100 1000 10000 ) # 100000 # 1000000
 
 # M=( `seq 0 10` )
-# M=( $(eval echo {0..10} ))
-M=( 0 5 )
+M=( $(eval echo {0..10} ))
+# M=( 0 5 )
 
 # N=( `seq 1 100` )
-# N=( $(eval echo {1..100} ))
-N=( 1 2 )
+N=( $(eval echo {1..100} ))
+# N=( 1 2 )
 
 ## run driver? YES=1 NO=0
 ## TODO default GEN to 1 if does not exist
