@@ -23,8 +23,8 @@ definitions to include affects data property."
   (:require [ncl.karyotype
              [karyotype :as k]
              [human :as h]
-             [events :as e]
-             [affects1 :as a]]))
+             [events :as e]]
+            [ncl.karyotype.scaling.affects1 :as a]))
 
 (defontology affects3
   :iri "http://www.purl.org/captau/karyotype/affects3"

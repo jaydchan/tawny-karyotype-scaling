@@ -24,8 +24,8 @@ definitions to include affects object property and sequence pattern"
   (:require [ncl.karyotype
              [karyotype :as k]
              [human :as h]
-             [events :as e]
-             [affects1 :as a]]))
+             [events :as e]]
+            [ncl.karyotype.scaling.affects1 :as a]))
 
 (defontology affects2
   :iri "http://www.purl.org/captau/karyotype/affects2"
