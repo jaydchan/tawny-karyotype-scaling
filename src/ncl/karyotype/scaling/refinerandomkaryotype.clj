@@ -17,9 +17,9 @@
 
 (ns ncl.karyotype.scaling.refinerandomkaryotype
   (:use [tawny.owl])
-  (:require [ncl.karyotype
-             random human
-             [affects2 :as a]]
+  (:require [ncl.karyotype random human]
+            [ncl.karyotype.scaling
+             [affects3 :as a]]
             [tawny.read]))
 
 (defn run-once [affects-driver k m n]
@@ -36,7 +36,7 @@
                    (.getClassesInSignature temp))]
       (affects-driver temp clazz))
 
-    (if (= affects-driver a/affects2-driver)
+    (if (= affects-driver a/affects3-driver)
       (a/set-ordinal temp))
 
     (save-ontology temp (str "n" n ".owl") :owl)
