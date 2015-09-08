@@ -17,7 +17,7 @@
 
 (defproject ncl.karyotype.scaling "0.1.0-SNAPSHOT"
   :description "Investigating scaling performance of the Karyotype Ontology."
-  :dependencies [[ncl.karyotype "1.0.0-SNAPSHOT"]]
+  :dependencies [[ncl.karyotype "1.0.0"]]
   :scm {:url "https://github.com/jaydchan/tawny-karyotype-scaling.git"
         :name "git"}
   :license {:name "LGPL"

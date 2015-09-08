@@ -1,8 +1,8 @@
 #!/bin/bash
 
-cd ../tawny-karyotype
-lein install
-cd ../tawny-karyotype-scaling
+# cd ../tawny-karyotype
+# lein install
+# cd ../tawny-karyotype-scaling
 
 AFFECTS=("without" "affects1" "affects2" "affects3" )
 # A=( `seq 0 $((${#AFFECTS[@]}-1))` )
